@@ -168,25 +168,21 @@ class TransactionStatus(StrEnum):
             TransactionStatus.FAILED,
             TransactionStatus.SUCCEEDED,
         }
-
     @staticmethod
     def parse(state: dict[str, Any]) -> TransactionStatus:
         r"""
         Returns a TransactionStatus instance based on the raw state of a Transaction.
         """
         status = state.get("status", None)
-
         assert status is not None
-
         status = status.upper()
-
-        if status not in TransactionStatus:
+    
+        if status not in TransactionStatus._value2member_map_:
             raise UnknownTransactionStatusError(
                 f"{status} is not a valid transaction status."
             )
-
-        return TransactionStatus[status]
-
+    
+        return TransactionStatus(status)
 
 @dataclass
 class TransactionLinks:
