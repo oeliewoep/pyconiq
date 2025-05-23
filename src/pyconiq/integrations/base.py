@@ -180,12 +180,12 @@ class TransactionStatus(StrEnum):
 
         status = status.upper()
 
-        if status not in TransactionStatus:
+        if status not in TransactionStatus._value2member_map_:
             raise UnknownTransactionStatusError(
                 f"{status} is not a valid transaction status."
             )
 
-        return TransactionStatus[status]
+        return TransactionStatus(status)
 
 
 @dataclass
